@@ -1,16 +1,25 @@
-import { IBuyer, TPayment, TBuyerValidationErrors } from '../../types/index';
+import { IBuyer, IBuyerModel, TPayment, TBuyerValidationErrors } from '../../types/index';
 
-export class Buyer {
+export class Buyer implements IBuyerModel {
     protected _payment: TPayment | '' = '';
     protected _address: string = '';
     protected _phone: string = '';
     protected _email: string = '';
 
     setField(field: keyof IBuyer, value: string): void {
-        if (field === 'payment') {
-            this._payment = value as TPayment;
-        } else {
-            (this as unknown as Record<string, string>)[`_${field}`] = value;
+        switch (field) {
+            case 'payment':
+                this._payment = value as TPayment;
+                break;
+            case 'address':
+                this._address = value;
+                break;
+            case 'phone':
+                this._phone = value;
+                break;
+            case 'email':
+                this._email = value;
+                break;
         }
     }
 

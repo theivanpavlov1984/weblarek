@@ -1,6 +1,6 @@
-import { IProduct } from '../../types/index';
+import { IProduct, IProductsModel } from '../../types/index';
 
-export class Products {
+export class Products implements IProductsModel {
     protected _items: IProduct[] = [];
     protected _preview: IProduct | null = null;
 

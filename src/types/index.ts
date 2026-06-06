@@ -46,3 +46,31 @@ export interface IOrderResponse {
 
 // Объект ошибок валидации покупателя
 export type TBuyerValidationErrors = Partial<Record<keyof IBuyer, string>>;
+
+// Интерфейс модели каталога товаров
+export interface IProductsModel {
+    setItems(items: IProduct[]): void;
+    getItems(): IProduct[];
+    getItemById(id: string): IProduct | undefined;
+    setPreview(item: IProduct): void;
+    getPreview(): IProduct | null;
+}
+
+// Интерфейс модели корзины
+export interface IBasketModel {
+    getItems(): IProduct[];
+    addItem(item: IProduct): void;
+    removeItem(item: IProduct): void;
+    clear(): void;
+    getTotalPrice(): number;
+    getCount(): number;
+    hasItem(id: string): boolean;
+}
+
+// Интерфейс модели покупателя
+export interface IBuyerModel {
+    setField(field: keyof IBuyer, value: string): void;
+    getData(): IBuyer;
+    clear(): void;
+    validate(): TBuyerValidationErrors;
+}
