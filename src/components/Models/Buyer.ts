@@ -1,7 +1,7 @@
 import { IBuyer, IBuyerModel, TPayment, TBuyerValidationErrors } from '../../types/index';
 
 export class Buyer implements IBuyerModel {
-    protected _payment: TPayment | '' = '';
+    protected _payment: TPayment | null = null;
     protected _address: string = '';
     protected _phone: string = '';
     protected _email: string = '';
@@ -9,7 +9,9 @@ export class Buyer implements IBuyerModel {
     setField(field: keyof IBuyer, value: string): void {
         switch (field) {
             case 'payment':
-                this._payment = value as TPayment;
+                if (value === 'card' || value === 'cash') {
+                    this._payment = value;
+                }
                 break;
             case 'address':
                 this._address = value;
@@ -25,7 +27,7 @@ export class Buyer implements IBuyerModel {
 
     getData(): IBuyer {
         return {
-            payment: this._payment as TPayment,
+            payment: this._payment,
             address: this._address,
             phone: this._phone,
             email: this._email,
@@ -33,7 +35,7 @@ export class Buyer implements IBuyerModel {
     }
 
     clear(): void {
-        this._payment = '';
+        this._payment = null;
         this._address = '';
         this._phone = '';
         this._email = '';

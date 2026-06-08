@@ -123,7 +123,7 @@ Presenter - презентер содержит основную логику п
 
 | Поле | Тип | Описание |
 |---|---|---|
-| `payment` | `TPayment` | Вид оплаты: `'card'` или `'cash'` |
+| `payment` | `TPayment \| null` | Вид оплаты: `'card'` или `'cash'`; `null` — не выбран |
 | `email` | `string` | Email покупателя |
 | `phone` | `string` | Телефон покупателя |
 | `address` | `string` | Адрес доставки |
@@ -230,7 +230,7 @@ Presenter - презентер содержит основную логику п
 
 | Поле | Тип | Описание |
 |---|---|---|
-| `_payment` | `TPayment \| ''` | Вид оплаты |
+| `_payment` | `TPayment \| null` | Вид оплаты; `null` — не выбран |
 | `_address` | `string` | Адрес доставки |
 | `_phone` | `string` | Телефон покупателя |
 | `_email` | `string` | Email покупателя |
