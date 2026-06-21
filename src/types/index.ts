@@ -74,3 +74,65 @@ export interface IBuyerModel {
     clear(): void;
     validate(): TBuyerValidationErrors;
 }
+
+// ===== View Interfaces =====
+
+// Главная страница
+export interface IPage {
+    counter: number;
+    catalog: HTMLElement[];
+}
+
+// Модальное окно
+export interface IModal {
+    content: HTMLElement | null;
+}
+
+// Базовая карточка
+export interface ICard {
+    id: string;
+    title: string;
+    price: number | null;
+}
+
+// Карточка каталога и превью
+export interface ICardCatalog extends ICard {
+    image: string;
+    category: string;
+}
+
+// Карточка превью (детальный просмотр)
+export interface ICardPreview extends ICardCatalog {
+    description: string;
+    inBasket: boolean;
+}
+
+// Карточка в корзине
+export interface ICardBasket extends ICard {
+    index: number;
+}
+
+// Вид корзины
+export interface IBasketView {
+    items: HTMLElement[];
+    total: number;
+}
+
+// Базовое состояние формы
+export interface IFormState {
+    valid: boolean;
+    errors: string;
+}
+
+// Форма оплаты и адреса (шаг 1)
+export interface IOrderPaymentView extends IFormState {
+    payment: TPayment | null;
+}
+
+// Форма контактов (шаг 2) — только базовое состояние
+export type IOrderContactsView = IFormState;
+
+// Экран успешного заказа
+export interface ISuccessView {
+    total: number;
+}
