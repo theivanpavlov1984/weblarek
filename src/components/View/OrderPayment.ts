@@ -6,11 +6,13 @@ import { IOrderPaymentView, TPayment } from '../../types/index';
 export class OrderPayment extends Form<IOrderPaymentView> {
     protected _cardButton: HTMLButtonElement;
     protected _cashButton: HTMLButtonElement;
+    protected _addressInput: HTMLInputElement;
 
     constructor(container: HTMLFormElement, events: IEvents) {
         super(container, events);
         this._cardButton = ensureElement<HTMLButtonElement>('button[name=card]', container);
         this._cashButton = ensureElement<HTMLButtonElement>('button[name=cash]', container);
+        this._addressInput = ensureElement<HTMLInputElement>('input[name=address]', container);
 
         this._cardButton.addEventListener('click', () => {
             events.emit('payment:select', { payment: 'card' });
@@ -24,5 +26,9 @@ export class OrderPayment extends Form<IOrderPaymentView> {
     set payment(value: TPayment | null) {
         this.toggleClass(this._cardButton, 'button_alt-active', value === 'card');
         this.toggleClass(this._cashButton, 'button_alt-active', value === 'cash');
+    }
+
+    set address(value: string) {
+        this._addressInput.value = value;
     }
 }

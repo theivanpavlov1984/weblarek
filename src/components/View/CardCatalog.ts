@@ -1,21 +1,20 @@
 import { Card } from './Card';
-import { IEvents } from '../base/Events';
 import { ensureElement } from '../../utils/utils';
 import { categoryMap } from '../../utils/constants';
-import { ICardCatalog } from '../../types/index';
+import { ICardCatalog, ICardActions } from '../../types/index';
 
 export class CardCatalog extends Card<ICardCatalog> {
     protected _image: HTMLImageElement;
     protected _category: HTMLElement;
 
-    constructor(container: HTMLElement, events: IEvents) {
+    constructor(container: HTMLElement, actions?: ICardActions) {
         super(container);
         this._image = ensureElement<HTMLImageElement>('.card__image', container);
         this._category = ensureElement<HTMLElement>('.card__category', container);
 
-        container.addEventListener('click', () => {
-            events.emit('card:select', { id: this.id });
-        });
+        if (actions?.onClick) {
+            container.addEventListener('click', actions.onClick);
+        }
     }
 
     set image(value: string) {

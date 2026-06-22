@@ -18,7 +18,7 @@ export class CardPreview extends Card<ICardPreview> {
         this._button = ensureElement<HTMLButtonElement>('.card__button', container);
 
         this._button.addEventListener('click', () => {
-            events.emit('card:buy', { id: this.id });
+            events.emit('card:buy');
         });
     }
 
@@ -37,15 +37,11 @@ export class CardPreview extends Card<ICardPreview> {
         this.setText(this._description, value);
     }
 
-    set inBasket(value: boolean) {
-        this.setText(this._button, value ? 'Удалить из корзины' : 'Купить');
+    set buttonText(value: string) {
+        this.setText(this._button, value);
     }
 
-    set price(value: number | null) {
-        this.setText(this._price, value !== null ? `${value} синапсов` : 'Бесценно');
-        if (value === null) {
-            this.setText(this._button, 'Недоступно');
-            this.setDisabled(this._button, true);
-        }
+    set buttonDisabled(value: boolean) {
+        this.setDisabled(this._button, value);
     }
 }

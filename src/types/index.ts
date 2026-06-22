@@ -77,9 +77,18 @@ export interface IBuyerModel {
 
 // ===== View Interfaces =====
 
-// Главная страница
-export interface IPage {
+// Колбэк действия пользователя над элементом (клик)
+export interface ICardActions {
+    onClick: (event: MouseEvent) => void;
+}
+
+// Хедер: счётчик товаров на иконке корзины
+export interface IHeader {
     counter: number;
+}
+
+// Галерея: список карточек каталога
+export interface IGallery {
     catalog: HTMLElement[];
 }
 
@@ -88,14 +97,13 @@ export interface IModal {
     content: HTMLElement | null;
 }
 
-// Базовая карточка
+// Базовая карточка (только отображаемые данные, без id)
 export interface ICard {
-    id: string;
     title: string;
     price: number | null;
 }
 
-// Карточка каталога и превью
+// Карточка каталога
 export interface ICardCatalog extends ICard {
     image: string;
     category: string;
@@ -104,7 +112,8 @@ export interface ICardCatalog extends ICard {
 // Карточка превью (детальный просмотр)
 export interface ICardPreview extends ICardCatalog {
     description: string;
-    inBasket: boolean;
+    buttonText: string;
+    buttonDisabled: boolean;
 }
 
 // Карточка в корзине
@@ -127,10 +136,14 @@ export interface IFormState {
 // Форма оплаты и адреса (шаг 1)
 export interface IOrderPaymentView extends IFormState {
     payment: TPayment | null;
+    address: string;
 }
 
-// Форма контактов (шаг 2) — только базовое состояние
-export type IOrderContactsView = IFormState;
+// Форма контактов (шаг 2)
+export interface IOrderContactsView extends IFormState {
+    email: string;
+    phone: string;
+}
 
 // Экран успешного заказа
 export interface ISuccessView {
